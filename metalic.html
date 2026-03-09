@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace ChoudTech Métalic - Construction Métallique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --bleu-nuit: #0B2B40;
+            --gris-beton: #95A5A6;
+            --cuivre: #B87333;
+            --blanc-casse: #F8F9FA;
+            --noir-metallic: #1E2B2F;
+            --acier: #E9ECEF;
+        }
+
+        body {
+            background-color: var(--blanc-casse);
+            color: var(--bleu-nuit);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations globales */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes backgroundPulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(11, 43, 64, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.8rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(184, 115, 51, 0.3);
+            transition: all 0.3s;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .logo-image img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--cuivre);
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--cuivre);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--cuivre);
+        }
+
+        nav a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Menu mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Hero section */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bleu-nuit), #1a4a6e, var(--noir-metallic));
+            background-size: 300% 300%;
+            animation: backgroundPulse 10s ease infinite;
+            z-index: -2;
+        }
+
+        .hero-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInScale 1s ease;
+        }
+
+        .hero h2 span {
+            color: var(--cuivre);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            animation: slideInRight 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            animation: fadeInScale 1s ease 0.4s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--cuivre);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--cuivre);
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--cuivre);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--cuivre);
+            color: var(--cuivre);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        /* Section titre */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--bleu-nuit);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--cuivre);
+        }
+
+        .section-title p {
+            color: var(--gris-beton);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(11, 43, 64, 0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(184, 115, 51, 0.15);
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--bleu-nuit);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--cuivre);
+            font-size: 40px;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--cuivre);
+            color: var(--bleu-nuit);
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--bleu-nuit);
+        }
+
+        .service-card p {
+            color: var(--gris-beton);
+        }
+
+        /* Avantages */
+        .avantages-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .avantage-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .avantage-item:hover {
+            transform: translateY(-5px);
+            background: var(--bleu-nuit);
+            color: white;
+        }
+
+        .avantage-icon {
+            font-size: 40px;
+            color: var(--cuivre);
+            margin-bottom: 15px;
+        }
+
+        .avantage-item:hover .avantage-icon {
+            color: white;
+        }
+
+        .avantage-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Section réalisations */
+        .realisations-section {
+            background: var(--bleu-nuit);
+            padding: 80px 0;
+        }
+
+        .realisations-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .realisations-title h2 {
+            font-size: 2.8rem;
+        }
+
+        .realisations-title h2 span {
+            color: var(--cuivre);
+        }
+
+        .realisations-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .realisations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .realisation-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .realisation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px rgba(184, 115, 51, 0.3);
+        }
+
+        .realisation-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .realisation-info {
+            padding: 20px;
+        }
+
+        .realisation-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--bleu-nuit);
+        }
+
+        .realisation-info p {
+            color: var(--gris-beton);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .realisation-date {
+            color: var(--cuivre);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Section à propos */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background: white;
+            border-radius: 50px;
+            padding: 60px;
+            box-shadow: 0 30px 60px rgba(11, 43, 64, 0.1);
+        }
+
+        .about-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: var(--bleu-nuit);
+            position: relative;
+        }
+
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--cuivre);
+        }
+
+        .about-content p {
+            color: var(--gris-beton);
+            margin-bottom: 20px;
+        }
+
+        .about-features {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .about-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--bleu-nuit);
+        }
+
+        .about-features li::before {
+            content: '✓';
+            color: var(--cuivre);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .about-image {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(11, 43, 64, 0.3);
+            height: 450px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Section contact simplifiée */
+        .contact-section {
+            background: linear-gradient(135deg, var(--bleu-nuit), var(--noir-metallic));
+            border-radius: 50px;
+            padding: 60px;
+            color: white;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--cuivre);
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            min-width: 200px;
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cuivre);
+            font-size: 28px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--cuivre);
+            color: var(--bleu-nuit);
+            transform: rotate(360deg);
+        }
+
+        .contact-item strong {
+            font-size: 1.1rem;
+            color: var(--cuivre);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bleu-nuit);
+            color: white;
+            padding: 60px 5% 20px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--cuivre);
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            line-height: 2;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--cuivre);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .avantages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .realisations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-section {
+                grid-template-columns: 1fr;
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .btn {
+                width: 80%;
+                margin: 0;
+            }
+
+            .avantages-grid,
+            .realisations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-details {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="logo_metalic.png" 
+                         alt="Espace ChoudTech Métalic"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='ECM'; this.parentElement.style.background='var(--cuivre)'; this.parentElement.style.color='white'; this.parentElement.style.fontWeight='bold';">
+                </div>
+                <div class="logo-text">
+                    <h1>Espace ChoudTech Métalic</h1>
+                    <p>CONSTRUCTION MÉTALLIQUE</p>
+                </div>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <nav id="mainNav">
+                <a href="#accueil">Accueil</a>
+                <a href="#services">Services</a>
+                <a href="#realisations">Réalisations</a>
+                <a href="#apropos">À propos</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="accueil">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h2>Construisons l'<span>Acier</span> de demain</h2>
+            <p>Expert en construction métallique, charpentes industrielles et structures en acier. Rapidité, durabilité et espaces optimisés.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn">Demander un devis</a>
+                <a href="#realisations" class="btn btn-outline">Nos réalisations</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="services">
+        <div class="section-title">
+            <h2>Notre Expertise</h2>
+            <p>Des solutions métalliques complètes pour tous vos projets</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <h3>Structures métalliques</h3>
+                <p>Conception et installation d'ossatures en acier pour tous types de bâtiments.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏭</div>
+                <h3>Hangars & Entrepôts</h3>
+                <p>Grands espaces avec poutres IPE, rapidité d'exécution et volumes libres.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⬆️</div>
+                <h3>Mezzanines</h3>
+                <p>Optimisation de l'espace avec structures métalliques sur plusieurs niveaux.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-title">
+            <h2>Pourquoi l'acier ?</h2>
+            <p>Les avantages de la construction métallique</p>
+        </div>
+        
+        <div class="avantages-grid">
+            <div class="avantage-item">
+                <div class="avantage-icon">⚡</div>
+                <h4>Rapidité</h4>
+                <p>Construction en un temps record</p>
+            </div>
+            <div class="avantage-item">
+                <div class="avantage-icon">📏</div>
+                <h4>Grands espaces</h4>
+                <p>Portées libres sans poteaux</p>
+            </div>
+            <div class="avantage-item">
+                <div class="avantage-icon">🛡️</div>
+                <h4>Durabilité</h4>
+                <p>Acier traité anti-rouille</p>
+            </div>
+            <div class="avantage-item">
+                <div class="avantage-icon">🏗️</div>
+                <h4>Polyvalence</h4>
+                <p>Tous types de bâtiments</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section réalisations avec les nouvelles descriptions -->
+    <div class="realisations-section" id="realisations">
+        <div class="realisations-title">
+            <h2>Nos <span>Réalisations</span></h2>
+            <p>Découvrez nos projets de construction métallique</p>
+        </div>
+        
+        <div class="realisations-grid">
+            <!-- Image 1 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (1).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 1</h3>
+                    <p>Érection de poteau structurel au chariot télescopique pour un alignement parfait dès la base.</p>
+                   
+                </div>
+            </div>
+            
+            <!-- Image 2 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (2).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 2</h3>
+                    <p>Organisation et préparation des profilés acier au sol pour un flux de montage optimisé.</p>
+                    
+                </div>
+            </div>
+            
+            <!-- Image 3 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (3).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 3</h3>
+                    <p>Assemblage de traverse de toiture combinant levage lourd et précision en nacelle articulée.</p>
+                </div>
+            </div>
+            
+            <!-- Image 4 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (4).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 4</h3>
+                    <p>Vue d'ensemble du déploiement de l'ossature définissant le volume industriel.</p>
+                </div>
+            </div>
+            
+            <!-- Image 5 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (5).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 5</h3>
+                    <p>Maîtrise des opérations de montage sur terrain complexe grâce à nos engins haute performance.</p>
+                </div>
+            </div>
+            
+            <!-- Image 6 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (6).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 6</h3>
+                    <p>Alignement rigoureux des portiques métalliques illustrant la qualité de nos assemblages.</p>
+                </div>
+            </div>
+            
+            <!-- Image 7 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (7).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 7</h3>
+                    <p>Coordination entre levage et nacelle pour un boulonnage structurel haute sécurité.</p>
+                </div>
+            </div>
+            
+            <!-- Image 8 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (8).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 8</h3>
+                    <p>Pose des pannes de toiture, support essentiel avant l'installation du bac acier.</p>
+                </div>
+            </div>
+            
+            <!-- Image 9 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (9).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 9</h3>
+                    <p>Ossature métallique principale terminée et prête pour les phases de bardage.</p>
+                </div>
+            </div>
+            
+            <!-- Image 10 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (10).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 10</h3>
+                    <p>Installation des éléments de rive et de pignon pour finaliser le volume du bâtiment.</p>
+                </div>
+            </div>
+            
+            <!-- Image 11 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (11).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 11</h3>
+                    <p>Travaux d'équipement intérieur sécurisés sous la structure à l'aide de nacelles élévatrices.</p>
+                </div>
+            </div>
+            
+            <!-- Image 12 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (12).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 12</h3>
+                    <p>Pose des réseaux techniques et finitions sous la toiture bac acier déjà installée.</p>
+                </div>
+            </div>
+            
+            <!-- Image 13 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (13).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 13</h3>
+                    <p>Installation d'un chéneau central de grande section pour une évacuation d'eau optimale.</p>
+                </div>
+            </div>
+            
+            <!-- Image 14 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (14).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 14</h3>
+                    <p>Étanchéité périphérique et finitions de rive le long des murs acrotères.</p>
+                </div>
+            </div>
+            
+            <!-- Image 15 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (15).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 15</h3>
+                    <p>Pose d'une poutre de liaison haute alliant levage télescopique et guidage manuel.</p>
+                </div>
+            </div>
+            
+            <!-- Image 16 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (16).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 16</h3>
+                    <p>Finalisation de la structure périphérique stabilisant définitivement les portiques.</p>
+                </div>
+            </div>
+            
+            <!-- Image 17 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (17).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 17</h3>
+                    <p>Techniciens en action pour la pose manuelle du bac acier, assurant la mise hors d'eau.</p>
+                </div>
+            </div>
+            
+            <!-- Image 18 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (18).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 18</h3>
+                    <p>Progression de la couverture de toiture pour la protection définitive du chantier.</p>
+                </div>
+            </div>
+            
+            <!-- Image 19 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (19).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 19</h3>
+                    <p>Expertise de nos équipes au sol pour la préparation et la sécurisation des levages.</p>
+                </div>
+            </div>
+            
+            <!-- Image 20 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (20).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 20</h3>
+                    <p>Vue latérale du complexe érigé, illustrant la transformation complète du site.</p>
+                </div>
+            </div>
+            
+            <!-- Image 21 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (21).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 21</h3>
+                    <p>Perspective intérieure du bâtiment mettant en valeur le volume et les puits de lumière.</p>
+                </div>
+            </div>
+            
+            <!-- Image 22 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (22).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 22</h3>
+                    <p>Pose des derniers bacs aciers au crépuscule, marquant la fin de la mise hors d'eau.</p>
+                </div>
+            </div>
+            
+            <!-- Image 23 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (23).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 23</h3>
+                    <p>Alignement frontal d'une travée maîtresse, témoignant de la précision géométrique du montage.</p>
+                </div>
+            </div>
+            
+            <!-- Image 24 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (24).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 24</h3>
+                    <p>Inspection finale du chéneau central après pose, garantissant une étanchéité parfaite.</p>
+                </div>
+            </div>
+            
+            <!-- Image 25 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (25).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 25</h3>
+                    <p>Connexion de précision entre traverse et poteau de rive par nos équipes spécialisées.</p>
+                </div>
+            </div>
+            
+            <!-- Image 26 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (26).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 26</h3>
+                    <p>Manutention et préparation sécurisée des poutres au sol avant le levage final.</p>
+                </div>
+            </div> 
+            <!-- Image 27 -->
+            <div class="realisation-card">
+                <div class="realisation-image" style="background-image: url('images/image (27).jpeg')"></div>
+                <div class="realisation-info">
+                    <h3>Réalisation 27</h3>
+                    <p>Vérification de l'élingage au sol, garantissant des manoeuvres de levage sans risque.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="apropos">
+        <div class="about-section">
+            <div class="about-content">
+                <h2>Espace ChoudTech Métalic</h2>
+                <p>Spécialiste en construction métallique au Maroc, nous concevons et installons des structures en acier pour tous types de bâtiments depuis plus de 15 ans.</p>
+                <p>Notre expertise : usines, entrepôts, supermarchés, immeubles d'habitation. Nous utilisons des techniques modernes (grues, poutres IPE) pour une rapidité d'exécution inégalée.</p>
+                <ul class="about-features">
+                    <li>Équipes qualifiées et équipements modernes</li>
+                    <li>Acier traité anti-rouille haute durabilité</li>
+                    <li>Rapidité d'exécution garantie</li>
+                </ul>
+                <a href="#contact" class="btn">Discuter de votre projet</a>
+            </div>
+            <div class="about-image">
+                <img src="images/image (7).jpeg" alt="Chantier métallique" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'">
+            </div>
+        </div>
+    </div>
+    <!-- Section contact simplifiée -->
+    <div class="container" id="contact">
+        <div class="contact-section">
+            <div class="contact-info">
+                <h3>Contact</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <strong>Adresse</strong>
+                        <span>hed essewalm, Casablanca, Maroc</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <strong>Téléphone</strong>
+                        <span>+212 641-285202</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <strong>Horaires</strong>
+                        <span>24/24</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Espace ChoudTech Métalic</h3>
+                <p>Expert en construction métallique et structures en acier au Maroc.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <a href="#accueil">Accueil</a>
+                <a href="#services">Services</a>
+                <a href="#realisations">Réalisations</a>
+                <a href="#apropos">À propos</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Structures métalliques</a>
+                <a href="#">Hangars & Entrepôts</a>
+                <a href="#">Mezzanines</a>
+                <a href="#">Charpentes</a>
+            </div>
+            <div class="footer-section">
+                <h3>Coordonnées</h3>
+                <p>📍 hed essewalm</p>
+                <p>📞 +212 641-285202</p>
+                <p>⏰ 24/24</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Espace ChoudTech Métalic. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        // Smooth scroll pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    document.getElementById('mainNav').classList.remove('active');
+                }
+            });
+        });
+
+        // Animation header au scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(11, 43, 64, 0.95)';
+            } else {
+                header.style.background = 'rgba(11, 43, 64, 0.9)';
+            }
+        });
+    </script>
+</body>
+</html>
